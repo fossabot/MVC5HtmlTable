@@ -8,5 +8,9 @@ namespace HtmlTableHelper
 {
     public class Class1
     {
+        public string Test(int val)
+        {
+            return val.ToString();
+        }
     }
 }
