@@ -44,6 +44,12 @@ namespace HtmlTableHelper
 
             var properties = subType.GetProperties();
             _outputViewModel.Header = properties.Select(p => p.Name).ToList();
+            _outputViewModel.Rows = new List<List<string>>();
+            foreach (var row in _inputModel)
+            {
+                var values = _outputViewModel.Header.Select(col => subType.GetProperty(col).GetValue(row, null).ToString()).ToList();
+                _outputViewModel.Rows.Add(values);
+            }
         }
 
         public IHtmlString Render()
