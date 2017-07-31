@@ -2,8 +2,8 @@
 {
     public class RowViewModel
     {
-        public string Col1 = "Col1Value";
-        public string Col2 = "Col2Value";
-        public string Col3 = "Col3Value";
+        public string Col1 { get; set; } = "Col1Value";
+        public string Col2 { get; set; } = "Col2Value";
+        public string Col3 { get; set; } = "Col3Value";
     }
 }

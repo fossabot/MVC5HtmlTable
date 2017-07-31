@@ -2,4 +2,15 @@
 @using HtmlTableHelper
 @model HtmlTableHelper.ViewModel.TableViewModel
 
-
+<table>
+    <thead>
+        <tr>
+            @foreach (var col in Model.Header)
+            {
+                <th>
+                    @col
+                </th>
+            }
+        </tr>
+    </thead>
+</table>

@@ -11,7 +11,7 @@ namespace HtmlTableHelper
 {
     public static class TableHelpers
     {
-        public static HtmlTable<TValue> DisplayTable<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression) where TValue : IEnumerable
+        public static HtmlTable<TValue> DisplayTable<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression) where TValue : IList
         {
             Func<TModel, TValue> deleg = expression.Compile();
             var result = deleg(helper.ViewData.Model);
