@@ -21,29 +21,20 @@ namespace HtmlTableHelper
         private object _model = null;
         private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
         
-        public HtmlTable(object model)
+        public HtmlTable(object model, IEnumerable<TRowModel> rows)
         {
             _model = model;
-            table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
-        }
-
-        public HtmlTable<TRowModel> Data<TModel, TRows>(Expression<Func<TModel, TRows>> expression) where TModel : class where TRows : IEnumerable 
-        {
-            Func<TModel, TRows> deleg = expression.Compile();
-            var result = deleg(_model as TModel);
-
             table.Rows = new List<List<string>>();
 
+            table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
             //For each row, add the value of each column to the model
-            foreach (var row in result)
+            foreach (var row in rows)
             {
                 var values = table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
                 table.Rows.Add(values);
             }
-
-            return this;
         }
-
+        
 
         public IHtmlString Render()
         {

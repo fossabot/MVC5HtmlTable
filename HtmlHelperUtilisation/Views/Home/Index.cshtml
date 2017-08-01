@@ -3,5 +3,4 @@
 @model HtmlHelperUtilisation.Models.TestViewModel
 
 
-@(Html.DisplayTable<RowViewModel>().Data<TestViewModel, List<RowViewModel>>(model => model.ListTest).Render())
-@(Html.DisplayTable<RowViewModel>().Render())
+@(Html.DisplayTable(m => m.ListTest).Render())
