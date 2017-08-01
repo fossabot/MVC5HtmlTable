@@ -1,6 +1,5 @@
-﻿@using HtmlHelperUtilisation.Models
-@using HtmlTableHelper
+﻿@using HtmlTableHelper
 @model HtmlHelperUtilisation.Models.TestViewModel
 
 
-@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Toggle(Table.Part.Header).Render())
+@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Render())

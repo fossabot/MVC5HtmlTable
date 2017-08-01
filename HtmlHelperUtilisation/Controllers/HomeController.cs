@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using HtmlHelperUtilisation.Models;
 
@@ -12,7 +8,7 @@ namespace HtmlHelperUtilisation.Controllers
     {
         public ActionResult Index()
         {
-            var model = new TestViewModel()
+            var model = new TestViewModel
             {
                 ListTest = new List<RowViewModel>
                 {
