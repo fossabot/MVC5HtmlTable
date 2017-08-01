@@ -1,5 +1,11 @@
 ﻿@using HtmlTableHelper
 @model HtmlHelperUtilisation.Models.TestViewModel
 
+<style>
+    .tableColor
+    {
+        color: purple;
+    }
+</style>
 
-@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Render())
+@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Class("tableColor").Render())

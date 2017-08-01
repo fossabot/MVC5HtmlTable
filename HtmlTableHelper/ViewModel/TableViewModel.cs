@@ -11,5 +11,6 @@ namespace HtmlTableHelper.ViewModel
         public List<List<string>> Rows { get; set; }
         public Dictionary<string, string> HeaderRenameMapping { get; set; }
         public TableOptions TableOptions { get; set; } = new TableOptions();
+        public string RootClasses { get; set; }
     }
 }

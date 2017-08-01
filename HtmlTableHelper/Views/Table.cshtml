@@ -1,6 +1,6 @@
 ﻿@model HtmlTableHelper.ViewModel.TableViewModel
 
-<table>
+<table class="@Model.RootClasses">
     @if (Model.TableOptions.IsHeaderEnabled)
     {
         <thead>

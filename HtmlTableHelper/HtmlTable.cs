@@ -89,6 +89,13 @@ namespace HtmlTableHelper
             return this;
         }
 
+        public HtmlTable<TRowModel> Class(string classes)
+        {
+            _table.RootClasses = classes;
+
+            return this;
+        }
+
         public IHtmlString Render()
         {
             GenerateRows();
