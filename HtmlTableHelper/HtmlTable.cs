@@ -14,50 +14,90 @@ using RazorEngine.Templating;
 
 namespace HtmlTableHelper
 {
-    public class HtmlTable<TValue> where TValue : IList
+    public class HtmlTable<TRowModel>
     {
-        private TValue _inputModel;
-        private readonly TableViewModel _outputViewModel = new TableViewModel();
-        private StringBuilder _str = new StringBuilder();
+        private readonly TableViewModel table = new TableViewModel();
+        private readonly StringBuilder _str = new StringBuilder();
+        private object _model = null;
         private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
-
-        public HtmlTable(TValue model)
+        
+        public HtmlTable(object model)
         {
-            Init(model);
+            _model = model;
+            table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
         }
 
-        public HtmlTable<TValue> Init(TValue model)
+        public HtmlTable<TRowModel> Data<TModel, TRows>(Expression<Func<TModel, TRows>> expression) where TModel : class where TRows : IEnumerable 
         {
-            if(model.Count == 0)
-                throw new ArgumentException("The list must not be empty");
+            Func<TModel, TRows> deleg = expression.Compile();
+            var result = deleg(_model as TModel);
 
-            _inputModel = model;
+            table.Rows = new List<List<string>>();
 
-            UpdateViewModel();
+            //For each row, add the value of each column to the model
+            foreach (var row in result)
+            {
+                var values = table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
+                table.Rows.Add(values);
+            }
 
             return this;
         }
 
-        private void UpdateViewModel()
-        {
-            var subType = _inputModel.GetContainedType();
-
-            var properties = subType.GetProperties();
-            _outputViewModel.Header = properties.Select(p => p.Name).ToList();
-            _outputViewModel.Rows = new List<List<string>>();
-            foreach (var row in _inputModel)
-            {
-                var values = _outputViewModel.Header.Select(col => subType.GetProperty(col).GetValue(row, null).ToString()).ToList();
-                _outputViewModel.Rows.Add(values);
-            }
-        }
 
         public IHtmlString Render()
         {
             var razorRaw = File.ReadAllText($"{ViewsPath}/Table.cshtml");
-            var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, _outputViewModel);
+            var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, table);
             _str.Append(razorResult);
             return MvcHtmlString.Create(_str.ToString());
         }
     }
 }
+
+//public class HtmlTable<TListModel> where TListModel : IList
+//{
+//    private TListModel _inputModel;
+//    private readonly TableViewModel _outputViewModel = new TableViewModel();
+//    private StringBuilder _str = new StringBuilder();
+//    private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
+
+//    public HtmlTable(TListModel model)
+//    {
+//        Init(model);
+//    }
+
+//    public HtmlTable<TListModel> Init(TListModel model)
+//    {
+//        if (model.Count == 0)
+//            throw new ArgumentException("The list must not be empty");
+
+//        _inputModel = model;
+
+//        UpdateViewModel();
+
+//        return this;
+//    }
+
+//    private void UpdateViewModel()
+//    {
+//        var subType = _inputModel.GetContainedType();
+
+//        var properties = subType.GetProperties();
+//        _outputViewModel.Header = properties.Select(p => p.Name).ToList();
+//        _outputViewModel.Rows = new List<List<string>>();
+//        foreach (var row in _inputModel)
+//        {
+//            var values = _outputViewModel.Header.Select(col => subType.GetProperty(col).GetValue(row, null).ToString()).ToList();
+//            _outputViewModel.Rows.Add(values);
+//        }
+//    }
+
+//    public IHtmlString Render()
+//    {
+//        var razorRaw = File.ReadAllText($"{ViewsPath}/Table.cshtml");
+//        var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, _outputViewModel);
+//        _str.Append(razorResult);
+//        return MvcHtmlString.Create(_str.ToString());
+//    }
+//}

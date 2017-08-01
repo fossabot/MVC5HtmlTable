@@ -1,5 +1,7 @@
-﻿@using HtmlTableHelper
+﻿@using HtmlHelperUtilisation.Models
+@using HtmlTableHelper
 @model HtmlHelperUtilisation.Models.TestViewModel
 
 
-@Html.DisplayTable(model => model.ListTest).Render()
+@(Html.DisplayTable<RowViewModel>().Data<TestViewModel, List<RowViewModel>>(model => model.ListTest).Render())
+@(Html.DisplayTable<RowViewModel>().Render())

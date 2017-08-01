@@ -11,12 +11,22 @@ namespace HtmlTableHelper
 {
     public static class TableHelpers
     {
-        public static HtmlTable<TValue> DisplayTable<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression) where TValue : IList
+        public static HtmlTable<TRowModel> DisplayTable<TRowModel>(this HtmlHelper helper)
         {
-            Func<TModel, TValue> deleg = expression.Compile();
-            var result = deleg(helper.ViewData.Model);
-
-            return new HtmlTable<TValue>(result);
+            return new HtmlTable<TRowModel>(helper.ViewData.Model);
         }
+
+        public static HtmlTable<TRowModel> DisplayTable<TRowModel, TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
+        {
+            return new HtmlTable<TRowModel>(helper.ViewData.Model);
+        }
+
+        //public static HtmlTable<TRowModel> DisplayTable<TData>(this HtmlHelper<TData> helper, Expression<Func<TData, TRowModel>> expression) where TData : IEnumerable
+        //{
+        //    Func<TData, TRowModel> deleg = expression.Compile();
+        //    var result = deleg(helper.ViewData.Model);
+
+        //    return new HtmlTable<TRowModel>(result);
+        //}
     }
 }
