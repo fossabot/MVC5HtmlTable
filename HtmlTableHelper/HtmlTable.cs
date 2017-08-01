@@ -32,6 +32,7 @@ namespace HtmlTableHelper
 
             table.Rows = new List<List<string>>();
             table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
+            table.HeaderRenameMapping = new Dictionary<string, string>();
         }
 
         private void GenerateRows()
@@ -53,6 +54,16 @@ namespace HtmlTableHelper
             return this;
         }
 
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
+        {
+            var baseName = (expression.Body as MemberExpression)?.Member.Name;
+            if(baseName == null)
+                throw new ArgumentException("The provided column could not be found");
+
+            table.HeaderRenameMapping.Add(baseName, newName);
+            
+            return this;
+        }
 
         public IHtmlString Render()
         {
