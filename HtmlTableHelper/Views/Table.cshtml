@@ -3,16 +3,19 @@
 @model HtmlTableHelper.ViewModel.TableViewModel
 
 <table>
-    <thead>
-        <tr>
-            @foreach (var col in Model.RenamedHeader)
-            {
-                <th>
-                    @col
-                </th>
-            }
-        </tr>
-    </thead>
+    @if (Model.TableOptions.IsHeaderEnabled)
+    {
+        <thead>
+            <tr>
+                @foreach (var col in Model.RenamedHeader)
+                {
+                    <th>
+                        @col
+                    </th>
+                }
+            </tr>
+        </thead>
+    }
     <tbody>
         @foreach (var row in Model.Rows)
         {
@@ -26,4 +29,17 @@
             </tr>
         }
     </tbody>
+    @if (Model.TableOptions.IsFooterEnabled)
+    {
+        <tfoot>
+        <tr>
+            @foreach (var col in Model.RenamedHeader)
+            {
+                <th>
+                    @col
+                </th>
+            }
+        </tr>
+        </tfoot>
+    }
 </table>

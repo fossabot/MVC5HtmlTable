@@ -23,8 +23,7 @@ namespace HtmlTableHelper
         private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
 
         private PropertyInfo[] properties => typeof(TRowModel).GetProperties();
-
-
+        
         public HtmlTable(object model, IEnumerable<TRowModel> rows)
         {
             _model = model;
@@ -57,11 +56,49 @@ namespace HtmlTableHelper
         public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
         {
             var baseName = (expression.Body as MemberExpression)?.Member.Name;
-            if(baseName == null)
+            if (baseName == null)
                 throw new ArgumentException("The provided column could not be found");
 
             table.HeaderRenameMapping.Add(baseName, newName);
-            
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> Disable(Table.Part part)
+        {
+            Toggle(part, false);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> Enable(Table.Part part)
+        {
+            Toggle(part, true);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> Toggle(Table.Part part, bool? val = null)
+        {
+            bool value;
+
+            if (val == null)
+            {
+                if (table.TableOptions.PartsStatus.ContainsKey(part) && table.TableOptions.PartsStatus[part])
+                    value = false;
+                else
+                    value = true;
+            }
+
+            else
+                value = (bool) val;
+
+            if (table.TableOptions.PartsStatus.ContainsKey(part))
+                table.TableOptions.PartsStatus[part] = value;
+
+            else
+                table.TableOptions.PartsStatus.Add(part, value);
+
             return this;
         }
 
