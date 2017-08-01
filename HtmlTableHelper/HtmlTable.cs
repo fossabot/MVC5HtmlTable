@@ -15,22 +15,18 @@ namespace HtmlTableHelper
 {
     public class HtmlTable<TRowModel>
     {
-        private readonly TableViewModel table = new TableViewModel();
+        private readonly TableViewModel _table = new TableViewModel();
         private readonly StringBuilder _str = new StringBuilder();
-        private object _model;
-        private IEnumerable<TRowModel> _rows;
-        private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
+        private readonly IEnumerable<TRowModel> _rows;
+        private readonly string _viewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
 
-        private PropertyInfo[] properties => typeof(TRowModel).GetProperties();
-        
         public HtmlTable(object model, IEnumerable<TRowModel> rows)
         {
-            _model = model;
             _rows = rows as IList<TRowModel> ?? rows.ToList();
 
-            table.Rows = new List<List<string>>();
-            table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
-            table.HeaderRenameMapping = new Dictionary<string, string>();
+            _table.Rows = new List<List<string>>();
+            _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
+            _table.HeaderRenameMapping = new Dictionary<string, string>();
         }
 
         private void GenerateRows()
@@ -38,8 +34,8 @@ namespace HtmlTableHelper
             //For each row, add the value of each column to the model
             foreach (var row in _rows)
             {
-                var values = table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
-                table.Rows.Add(values);
+                var values = _table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
+                _table.Rows.Add(values);
             }
         }
 
@@ -47,7 +43,7 @@ namespace HtmlTableHelper
         {
             var member = expression.Body as MemberExpression;
             var propertyName = member?.Member.Name;
-            table.Header.Remove(propertyName);
+            _table.Header.Remove(propertyName);
 
             return this;
         }
@@ -58,7 +54,7 @@ namespace HtmlTableHelper
             if (baseName == null)
                 throw new ArgumentException("The provided column could not be found");
 
-            table.HeaderRenameMapping.Add(baseName, newName);
+            _table.HeaderRenameMapping.Add(baseName, newName);
 
             return this;
         }
@@ -83,7 +79,7 @@ namespace HtmlTableHelper
 
             if (val == null)
             {
-                if (table.TableOptions.PartsStatus.ContainsKey(part) && table.TableOptions.PartsStatus[part])
+                if (_table.TableOptions.PartsStatus.ContainsKey(part) && _table.TableOptions.PartsStatus[part])
                     value = false;
                 else
                     value = true;
@@ -92,11 +88,11 @@ namespace HtmlTableHelper
             else
                 value = (bool) val;
 
-            if (table.TableOptions.PartsStatus.ContainsKey(part))
-                table.TableOptions.PartsStatus[part] = value;
+            if (_table.TableOptions.PartsStatus.ContainsKey(part))
+                _table.TableOptions.PartsStatus[part] = value;
 
             else
-                table.TableOptions.PartsStatus.Add(part, value);
+                _table.TableOptions.PartsStatus.Add(part, value);
 
             return this;
         }
@@ -105,8 +101,8 @@ namespace HtmlTableHelper
         {
             GenerateRows();
 
-            var razorRaw = File.ReadAllText($"{ViewsPath}/Table.cshtml");
-            var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, table);
+            var razorRaw = File.ReadAllText($"{_viewsPath}/Table.cshtml");
+            var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, _table);
             _str.Append(razorResult);
             return MvcHtmlString.Create(_str.ToString());
         }
