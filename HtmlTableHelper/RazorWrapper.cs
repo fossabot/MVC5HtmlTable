@@ -13,6 +13,7 @@ namespace HtmlTableHelper
         public static MvcHtmlString RenderTable(TableViewModel table)
         {
             var razorResult = Engine.Razor.RunCompile(FilesManager.TableView, "table", null, table);
+            _str.Clear();
             _str.Append(razorResult);
             return MvcHtmlString.Create(_str.ToString());
         }
