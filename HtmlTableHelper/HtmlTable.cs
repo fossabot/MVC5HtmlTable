@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 using System.Web;
-using System.Web.Mvc;
 using HtmlTableHelper.ViewModel;
-using RazorEngine;
-using RazorEngine.Templating;
 
 namespace HtmlTableHelper
 {
     public class HtmlTable<TRowModel>
     {
         private readonly TableViewModel _table = new TableViewModel();
-        private readonly StringBuilder _str = new StringBuilder();
         private readonly IEnumerable<TRowModel> _rows;
-        private readonly string _viewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
 
         public HtmlTable(object model, IEnumerable<TRowModel> rows)
         {
@@ -100,11 +92,7 @@ namespace HtmlTableHelper
         public IHtmlString Render()
         {
             GenerateRows();
-
-            var razorRaw = File.ReadAllText($"{_viewsPath}/Table.cshtml");
-            var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, _table);
-            _str.Append(razorResult);
-            return MvcHtmlString.Create(_str.ToString());
+            return RazorWrapper.RenderTable(_table);
         }
     }
 }
