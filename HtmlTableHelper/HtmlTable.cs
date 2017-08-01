@@ -19,25 +19,45 @@ namespace HtmlTableHelper
         private readonly TableViewModel table = new TableViewModel();
         private readonly StringBuilder _str = new StringBuilder();
         private object _model = null;
+        private IEnumerable<TRowModel> _rows = null;
         private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
-        
+
+        private PropertyInfo[] properties => typeof(TRowModel).GetProperties();
+
+
         public HtmlTable(object model, IEnumerable<TRowModel> rows)
         {
             _model = model;
-            table.Rows = new List<List<string>>();
+            _rows = rows as IList<TRowModel> ?? rows.ToList();
 
+            table.Rows = new List<List<string>>();
             table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
+        }
+
+        private void GenerateRows()
+        {
             //For each row, add the value of each column to the model
-            foreach (var row in rows)
+            foreach (var row in _rows)
             {
                 var values = table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
                 table.Rows.Add(values);
             }
         }
-        
+
+        public HtmlTable<TRowModel> Exclude<TCol>(Expression<Func<TRowModel, TCol>> expression)
+        {
+            var member = expression.Body as MemberExpression;
+            var propertyName = member?.Member.Name;
+            table.Header.Remove(propertyName);
+
+            return this;
+        }
+
 
         public IHtmlString Render()
         {
+            GenerateRows();
+
             var razorRaw = File.ReadAllText($"{ViewsPath}/Table.cshtml");
             var razorResult = Engine.Razor.RunCompile(razorRaw, "table", null, table);
             _str.Append(razorResult);
