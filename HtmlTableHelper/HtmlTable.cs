@@ -91,15 +91,17 @@ namespace HtmlTableHelper
             return this;
         }
 
+
+
         public HtmlTable<TRowModel> ColFilter<TCol>(IColFilter colFilter, Expression<Func<TRowModel, TCol>> expression)
         {
             var propertyName = (expression.Body as MemberExpression)?.Member.Name;
             if (propertyName == null)
                 throw new ArgumentException("The provided column could not be found");
-            
-                _table.FiltersMapping.Remove(propertyName);
 
-            if(colFilter != null)
+            _table.FiltersMapping.Remove(propertyName);
+
+            if (colFilter != null)
                 _table.FiltersMapping.Add(propertyName, colFilter);
 
             return this;
@@ -109,7 +111,28 @@ namespace HtmlTableHelper
         {
             foreach (var expression in expressions)
                 ColFilter(colFilter, expression);
-            
+
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> RemoveColsFilter<TCol>(params Expression<Func<TRowModel, TCol>>[] expressions)
+        {
+            foreach (var expression in expressions)
+            {
+                var propertyName = (expression.Body as MemberExpression)?.Member.Name;
+                if (propertyName == null)
+                    throw new ArgumentException("The provided column could not be found");
+
+                _table.FiltersMapping.Remove(propertyName);
+            }
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ClearColsFilter()
+        {
+            _table.FiltersMapping.Clear();
 
             return this;
         }
