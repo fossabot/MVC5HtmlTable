@@ -23,7 +23,7 @@
                     string colName = Model.Header[i];
                     string value = @row[i];
                     <td>
-                        @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].IsMatch(value))
+                        @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].FilterForValue(value))
                         {
                           @row[i]
                         }
