@@ -13,7 +13,7 @@ namespace HtmlTableHelper
             Func<TModel, IEnumerable<TRowModel>> deleg = expression.Compile();
             var result = deleg(helper.ViewData.Model);
 
-            return new HtmlTable<TRowModel>(helper.ViewData.Model, result);
+            return new HtmlTable<TRowModel>(helper.ViewData.Model, result, helper.ViewContext.Writer);
         }
     }
 }

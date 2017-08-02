@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -11,10 +12,15 @@ namespace HtmlTableHelper
     {
         private readonly TableViewModel _table = new TableViewModel();
         private readonly IEnumerable<TRowModel> _rows;
+        protected readonly TextWriter _writer;
+        private readonly object _model;
+        public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, _writer);
 
-        public HtmlTable(object model, IEnumerable<TRowModel> rows)
+        public HtmlTable(object model, IEnumerable<TRowModel> rows, TextWriter writer)
         {
             _rows = rows as IList<TRowModel> ?? rows.ToList();
+            _writer = writer;
+            _model = model;
 
             _table.Rows = new List<List<string>>();
             _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
@@ -110,7 +116,7 @@ namespace HtmlTableHelper
             }
 
             else
-                value = (bool) val;
+                value = (bool)val;
 
             if (_table.TableOptions.PartsStatus.ContainsKey(part))
                 _table.TableOptions.PartsStatus[part] = value;
@@ -132,6 +138,19 @@ namespace HtmlTableHelper
         {
             GenerateRows();
             return RazorWrapper.RenderTable(_table);
+        }
+    }
+
+    public class DisposableHtmlTable<TRowModel> : HtmlTable<TRowModel>, IDisposable
+    {
+        public DisposableHtmlTable(object model, IEnumerable<TRowModel> rows, TextWriter writer) : base(model, rows, writer)
+        {
+
+        }
+
+        public void Dispose()
+        {
+            _writer.Write(Render());
         }
     }
 }

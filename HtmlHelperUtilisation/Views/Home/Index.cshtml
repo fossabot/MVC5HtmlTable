@@ -1,4 +1,5 @@
-﻿@using HtmlTableHelper
+﻿@using HtmlHelperUtilisation.Models
+@using HtmlTableHelper
 @model HtmlHelperUtilisation.Models.TestViewModel
 
 <style>
@@ -9,3 +10,9 @@
 </style>
 
 @Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Rename(m => m.Col3, "Col3FooterRename", Table.Part.Footer).Enable(Table.Part.Footer).Class("tableColor").Render()
+
+@using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
+{
+    table.Rename(m => m.Col1, "Col1Renamed");
+    table.Exclude(m => m.Col3);
+}
