@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 using System.Web;
 using HtmlTableHelper.Filters;
+using HtmlTableHelper.Models;
+using HtmlTableHelper.Utils;
 using HtmlTableHelper.ViewModel;
 
-namespace HtmlTableHelper
+namespace HtmlTableHelper.Logic
 {
     public class HtmlTable<TRowModel>
     {
+        #region UTILS
+
+        #region PROPERTIES
         private readonly TableViewModel _table = new TableViewModel();
         private readonly IEnumerable<TRowModel> _rows;
         protected readonly TextWriter Writer;
         private readonly object _model;
         public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, Writer);
+
+        #endregion
 
         public HtmlTable(object model, IEnumerable<TRowModel> rows, TextWriter writer)
         {
@@ -38,6 +44,12 @@ namespace HtmlTableHelper
             }
         }
 
+        public IHtmlString Render()
+        {
+            GenerateRows();
+            return RazorWrapper.RenderTable(_table);
+        }
+
         public HtmlTable<TRowModel> Exclude<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
             var member = expression.Body as MemberExpression;
@@ -46,6 +58,10 @@ namespace HtmlTableHelper
 
             return this;
         }
+
+        #endregion
+
+        #region RENAME
 
         public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
         {
@@ -91,7 +107,9 @@ namespace HtmlTableHelper
             return this;
         }
 
+        #endregion
 
+        #region FITLERS
 
         public HtmlTable<TRowModel> ColFilter<TCol>(IColFilter colFilter, Expression<Func<TRowModel, TCol>> expression)
         {
@@ -137,6 +155,10 @@ namespace HtmlTableHelper
             return this;
         }
 
+        #endregion
+
+        #region PARTS
+
         public HtmlTable<TRowModel> Disable(Table.Part part)
         {
             Toggle(part, false);
@@ -175,6 +197,10 @@ namespace HtmlTableHelper
             return this;
         }
 
+        #endregion
+
+        #region DESIGN
+
         public HtmlTable<TRowModel> Class(string classes)
         {
             _table.RootClasses = classes;
@@ -182,23 +208,6 @@ namespace HtmlTableHelper
             return this;
         }
 
-        public IHtmlString Render()
-        {
-            GenerateRows();
-            return RazorWrapper.RenderTable(_table);
-        }
-    }
-
-    public class DisposableHtmlTable<TRowModel> : HtmlTable<TRowModel>, IDisposable
-    {
-        public DisposableHtmlTable(object model, IEnumerable<TRowModel> rows, TextWriter writer) : base(model, rows, writer)
-        {
-
-        }
-
-        public void Dispose()
-        {
-            Writer.Write(Render());
-        }
+        #endregion
     }
 }

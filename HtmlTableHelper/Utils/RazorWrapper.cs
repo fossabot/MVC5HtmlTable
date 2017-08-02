@@ -4,7 +4,7 @@ using HtmlTableHelper.ViewModel;
 using RazorEngine;
 using RazorEngine.Templating;
 
-namespace HtmlTableHelper
+namespace HtmlTableHelper.Utils
 {
     public static class RazorWrapper
     {

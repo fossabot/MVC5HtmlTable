@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using HtmlTableHelper.Logic;
 
 namespace HtmlTableHelper
 {

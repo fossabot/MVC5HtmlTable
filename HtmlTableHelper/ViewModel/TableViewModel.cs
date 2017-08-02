@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using HtmlTableHelper.Filters;
+using HtmlTableHelper.Models;
 
 namespace HtmlTableHelper.ViewModel
 {
