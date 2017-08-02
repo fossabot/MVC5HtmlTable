@@ -52,57 +52,53 @@ namespace HtmlTableHelper.Logic
 
         public HtmlTable<TRowModel> Exclude<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
-            var member = expression.Body as MemberExpression;
-            var propertyName = member?.Member.Name;
+            var propertyName = GetPropertyName(expression);
             _table.Header.Remove(propertyName);
 
             return this;
+        }
+        
+        private static string GetPropertyName<TCol>(Expression<Func<TRowModel, TCol>> expression)
+        {
+            var member = expression.Body as MemberExpression;
+            if (member == null)
+                throw new ArgumentException("The provided column does not be exist");
+            var propertyName = member.Member.Name;
+            return propertyName;
         }
 
         #endregion
 
         #region RENAME
 
-        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName)
         {
-            var baseName = (expression.Body as MemberExpression)?.Member.Name;
-            if (baseName == null)
-                throw new ArgumentException("The provided column could not be found");
-
-            _table.GlobalRenameMapping.Add(baseName, newName);
+            _table.GlobalRenameMapping.Add(GetPropertyName(targetPropertyExpression), newName);
 
             return this;
         }
 
-        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName, Table.Part part)
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName, Table.Part part)
         {
             if (part == Table.Part.Header)
-                RenameHeader(expression, newName);
+                RenameHeader(targetPropertyExpression, newName);
 
             if (part == Table.Part.Footer)
-                RenameFooter(expression, newName);
+                RenameFooter(targetPropertyExpression, newName);
 
             return this;
         }
 
-        public HtmlTable<TRowModel> RenameHeader<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
+        public HtmlTable<TRowModel> RenameHeader<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName)
         {
-            var baseName = (expression.Body as MemberExpression)?.Member.Name;
-            if (baseName == null)
-                throw new ArgumentException("The provided column could not be found");
-
-            _table.HeaderRenameMapping.Add(baseName, newName);
+            _table.HeaderRenameMapping.Add(GetPropertyName(targetPropertyExpression), newName);
 
             return this;
         }
 
-        public HtmlTable<TRowModel> RenameFooter<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
+        public HtmlTable<TRowModel> RenameFooter<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName)
         {
-            var baseName = (expression.Body as MemberExpression)?.Member.Name;
-            if (baseName == null)
-                throw new ArgumentException("The provided column could not be found");
-
-            _table.FooterRenameMapping.Add(baseName, newName);
+            _table.FooterRenameMapping.Add(GetPropertyName(targetPropertyExpression), newName);
 
             return this;
         }
@@ -111,11 +107,9 @@ namespace HtmlTableHelper.Logic
 
         #region FITLERS
 
-        public HtmlTable<TRowModel> ColFilter<TCol>(IColFilter colFilter, Expression<Func<TRowModel, TCol>> expression)
+        public HtmlTable<TRowModel> ColFilter<TCol>(IColFilter colFilter, Expression<Func<TRowModel, TCol>> targetPropertyExpression)
         {
-            var propertyName = (expression.Body as MemberExpression)?.Member.Name;
-            if (propertyName == null)
-                throw new ArgumentException("The provided column could not be found");
+            var propertyName = GetPropertyName(targetPropertyExpression);
 
             _table.FiltersMapping.Remove(propertyName);
 
@@ -125,24 +119,21 @@ namespace HtmlTableHelper.Logic
             return this;
         }
 
-        public HtmlTable<TRowModel> ColsFilter<TCol>(IColFilter colFilter, params Expression<Func<TRowModel, TCol>>[] expressions)
+        public HtmlTable<TRowModel> ColsFilter<TCol>(IColFilter colFilter, params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
         {
-            foreach (var expression in expressions)
-                ColFilter(colFilter, expression);
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
+                ColFilter(colFilter, targetPropertyExpression);
 
 
             return this;
         }
 
-        public HtmlTable<TRowModel> RemoveColsFilter<TCol>(params Expression<Func<TRowModel, TCol>>[] expressions)
+        public HtmlTable<TRowModel> RemoveColsFilter<TCol>(params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
         {
-            foreach (var expression in expressions)
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
             {
-                var propertyName = (expression.Body as MemberExpression)?.Member.Name;
-                if (propertyName == null)
-                    throw new ArgumentException("The provided column could not be found");
 
-                _table.FiltersMapping.Remove(propertyName);
+                _table.FiltersMapping.Remove(GetPropertyName(targetPropertyExpression));
             }
 
             return this;
