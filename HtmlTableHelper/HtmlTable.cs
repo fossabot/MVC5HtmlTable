@@ -61,6 +61,17 @@ namespace HtmlTableHelper
             return this;
         }
 
+        public HtmlTable<TRowModel> RenameFooter<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
+        {
+            var baseName = (expression.Body as MemberExpression)?.Member.Name;
+            if (baseName == null)
+                throw new ArgumentException("The provided column could not be found");
+
+            _table.FooterRenameMapping.Add(baseName, newName);
+
+            return this;
+        }
+
         public HtmlTable<TRowModel> Disable(Table.Part part)
         {
             Toggle(part, false);
