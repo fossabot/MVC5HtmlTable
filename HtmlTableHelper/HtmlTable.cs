@@ -13,14 +13,14 @@ namespace HtmlTableHelper
     {
         private readonly TableViewModel _table = new TableViewModel();
         private readonly IEnumerable<TRowModel> _rows;
-        protected readonly TextWriter _writer;
+        protected readonly TextWriter Writer;
         private readonly object _model;
-        public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, _writer);
+        public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, Writer);
 
         public HtmlTable(object model, IEnumerable<TRowModel> rows, TextWriter writer)
         {
             _rows = rows as IList<TRowModel> ?? rows.ToList();
-            _writer = writer;
+            Writer = writer;
             _model = model;
 
             _table.Rows = new List<List<string>>();
@@ -166,7 +166,7 @@ namespace HtmlTableHelper
 
         public void Dispose()
         {
-            _writer.Write(Render());
+            Writer.Write(Render());
         }
     }
 }
