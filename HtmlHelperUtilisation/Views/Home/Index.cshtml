@@ -5,8 +5,7 @@
 @model HtmlHelperUtilisation.Models.TestViewModel
 
 <style>
-    .tableColor
-    {
+    .tableColor {
         color: purple;
     }
 </style>
@@ -16,6 +15,6 @@
 @using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
 {
     table.Rename(m => m.Col1, "Col1Renamed");
-    table.Exclude(m => m.Col3);
-    table.ColFilter(m => m.Col2, new RegexColFilter("3"));
+    table.ColFilter(new RegexColFilter("3"), m => m.Col2);
+    table.ColsFilter(new RegexColFilter("test"), m => m.Col3, m => m.Col2);
 }

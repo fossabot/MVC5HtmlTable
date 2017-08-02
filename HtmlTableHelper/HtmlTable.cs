@@ -91,17 +91,25 @@ namespace HtmlTableHelper
             return this;
         }
 
-        public HtmlTable<TRowModel> ColFilter<TCol>(Expression<Func<TRowModel, TCol>> expression, IColFilter colFilter = null)
+        public HtmlTable<TRowModel> ColFilter<TCol>(IColFilter colFilter, Expression<Func<TRowModel, TCol>> expression)
         {
             var propertyName = (expression.Body as MemberExpression)?.Member.Name;
             if (propertyName == null)
                 throw new ArgumentException("The provided column could not be found");
-
-            if (colFilter == null && _table.FiltersMapping.ContainsKey(propertyName))
+            
                 _table.FiltersMapping.Remove(propertyName);
 
-            else
+            if(colFilter != null)
                 _table.FiltersMapping.Add(propertyName, colFilter);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ColsFilter<TCol>(IColFilter colFilter, params Expression<Func<TRowModel, TCol>>[] expressions)
+        {
+            foreach (var expression in expressions)
+                ColFilter(colFilter, expression);
+            
 
             return this;
         }
