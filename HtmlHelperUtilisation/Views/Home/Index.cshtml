@@ -1,4 +1,5 @@
-﻿@using HtmlHelperUtilisation.Models
+﻿@using System.Text.RegularExpressions
+@using HtmlHelperUtilisation.Models
 @using HtmlTableHelper
 @model HtmlHelperUtilisation.Models.TestViewModel
 
@@ -15,4 +16,5 @@
 {
     table.Rename(m => m.Col1, "Col1Renamed");
     table.Exclude(m => m.Col3);
+    table.Filter(m => m.Col2, new Regex("test"));
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Web;
 using HtmlTableHelper.ViewModel;
 
@@ -85,6 +86,21 @@ namespace HtmlTableHelper
                 throw new ArgumentException("The provided column could not be found");
 
             _table.FooterRenameMapping.Add(baseName, newName);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> Filter<TCol>(Expression<Func<TRowModel, TCol>> expression, Regex filter = null)
+        {
+            var propertyName = (expression.Body as MemberExpression)?.Member.Name;
+            if (propertyName == null)
+                throw new ArgumentException("The provided column could not be found");
+
+            if (filter == null && _table.FiltersMapping.ContainsKey(propertyName))
+                _table.FiltersMapping.Remove(propertyName);
+
+            else
+                _table.FiltersMapping.Add(propertyName, filter);
 
             return this;
         }

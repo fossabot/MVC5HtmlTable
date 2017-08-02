@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace HtmlTableHelper.ViewModel
 {
@@ -19,6 +20,7 @@ namespace HtmlTableHelper.ViewModel
         public Dictionary<string, string> GlobalRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> HeaderRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> FooterRenameMapping { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, Regex> FiltersMapping { get; set; } = new Dictionary<string, Regex>();
         public TableOptions TableOptions { get; set; } = new TableOptions();
         public string RootClasses { get; set; }
     }
