@@ -16,5 +16,21 @@ namespace HtmlTableHelper
 
             return new HtmlTable<TRowModel>(helper.ViewData.Model, result, helper.ViewContext.Writer);
         }
+
+        public static HtmlTable<TRowModel> DisplayTable<TModel, TRowModel>(this HtmlHelper<TModel> helper, IEnumerable<TRowModel> data)
+        {
+            return new HtmlTable<TRowModel>(helper.ViewData.Model, data, helper.ViewContext.Writer);
+        }
+
+        public static HtmlTable<TRowModel> DisplayTableForModel<TRowModel>(this HtmlHelper<IEnumerable<TRowModel>> helper)
+        {
+            return helper.DisplayTable(helper.ViewData.Model);
+        }
+
+        // Have to re-define the IEnumerable otherwsie we get a compile-time error "List can't be cast to IEnumerable" -_-
+        public static HtmlTable<TRowModel> DisplayTableForModel<TRowModel>(this HtmlHelper<List<TRowModel>> helper)
+        {
+            return helper.DisplayTable(helper.ViewData.Model);
+        }
     }
 }

@@ -4,7 +4,7 @@
 @using HtmlTableHelper.Filters
 @using HtmlTableHelper.Logic
 @using HtmlTableHelper.Models
-@model HtmlHelperUtilisation.Models.TestViewModel
+@model  TestViewModel
 
 <style>
     .tableColor {
@@ -36,3 +36,5 @@
     table.ColsFilter(new RegexColFilter("test"), m => m.Col3, m => m.Col2);
     table.RemoveColsFilter(m => m.Col2);
 }
+
+@Html.DisplayTable(Model.ListTest).Render();
