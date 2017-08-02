@@ -50,6 +50,17 @@ namespace HtmlTableHelper
             return this;
         }
 
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName, Table.Part part)
+        {
+            if (part == Table.Part.Header)
+                RenameHeader(expression, newName);
+
+            if (part == Table.Part.Footer)
+                RenameFooter(expression, newName);
+
+            return this;
+        }
+
         public HtmlTable<TRowModel> RenameHeader<TCol>(Expression<Func<TRowModel, TCol>> expression, string newName)
         {
             var baseName = (expression.Body as MemberExpression)?.Member.Name;

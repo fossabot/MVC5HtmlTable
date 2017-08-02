@@ -8,4 +8,4 @@
     }
 </style>
 
-@Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").RenameHeader(m => m.Col3, "Col3HeaderRename").RenameFooter(m => m.Col3, "Col3FooterRename").Enable(Table.Part.Footer).Class("tableColor").Render()
+@Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Rename(m => m.Col3, "Col3FooterRename", Table.Part.Footer).Enable(Table.Part.Footer).Class("tableColor").Render()
