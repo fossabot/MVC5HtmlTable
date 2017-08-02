@@ -8,4 +8,4 @@
     }
 </style>
 
-@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Class("tableColor").Render())
+@(Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").RenameHeader(m => m.Col3, "Col3HeaderRename").Class("tableColor").Render())
