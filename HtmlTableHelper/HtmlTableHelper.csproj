@@ -69,14 +69,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Injectors\Converters\RegexColConverter.cs" />
+    <Compile Include="Injectors\Converters\IColConverter.cs" />
     <Compile Include="Logic\DisposableHtmlTable.cs" />
     <Compile Include="Utils\FilesManager.cs" />
     <Compile Include="HelperContainer.cs" />
     <Compile Include="Logic\HtmlTable.cs" />
-    <Compile Include="Filters\IColFilter.cs" />
+    <Compile Include="Injectors\Filters\IColFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\RazorWrapper.cs" />
-    <Compile Include="Filters\RegexColFilter.cs" />
+    <Compile Include="Injectors\Filters\RegexColFilter.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\TableOptions.cs" />
     <Compile Include="ViewModel\TableViewModel.cs" />

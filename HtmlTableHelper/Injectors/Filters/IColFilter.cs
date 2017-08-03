@@ -1,4 +1,4 @@
-namespace HtmlTableHelper.Filters
+namespace HtmlTableHelper.Injectors.Filters
 {
     public interface IColFilter
     {

@@ -25,7 +25,11 @@
                     <td>
                         @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].FilterForValue(value))
                         {
-                          @row[i]
+                            if (Model.ConvertersMapping.ContainsKey(colName))
+                            {
+                                value = Model.ConvertersMapping[colName].Convert(value);
+                            }
+                            @value
                         }
                     </td>
                 }
@@ -35,14 +39,14 @@
     @if (Model.TableOptions.IsFooterEnabled)
     {
         <tfoot>
-        <tr>
-            @foreach (string col in Model.RenamedFooter)
-            {
-                <th>
-                    @col
-                </th>
-            }
-        </tr>
+            <tr>
+                @foreach (string col in Model.RenamedFooter)
+                {
+                    <th>
+                        @col
+                    </th>
+                }
+            </tr>
         </tfoot>
     }
 </table>

@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using HtmlTableHelper.Filters;
+using HtmlTableHelper.Injectors.Converters;
+using HtmlTableHelper.Injectors.Filters;
 using HtmlTableHelper.Models;
 using HtmlTableHelper.Utils;
 using HtmlTableHelper.ViewModel;
@@ -57,7 +58,7 @@ namespace HtmlTableHelper.Logic
 
             return this;
         }
-        
+
         private static string GetPropertyName<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
             var member = expression.Body as MemberExpression;
@@ -142,6 +143,49 @@ namespace HtmlTableHelper.Logic
         public HtmlTable<TRowModel> ClearColsFilter()
         {
             _table.FiltersMapping.Clear();
+
+            return this;
+        }
+
+        #endregion
+
+        #region CONVERTERS
+
+        public HtmlTable<TRowModel> ColConverter<TCol>(IColConverter colFilter, Expression<Func<TRowModel, TCol>> targetPropertyExpression)
+        {
+            var propertyName = GetPropertyName(targetPropertyExpression);
+
+            _table.ConvertersMapping.Remove(propertyName);
+
+            if (colFilter != null)
+                _table.ConvertersMapping.Add(propertyName, colFilter);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ColsConverter<TCol>(IColConverter colFilter, params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
+        {
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
+                ColConverter(colFilter, targetPropertyExpression);
+
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> RemoveColsConverter<TCol>(params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
+        {
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
+            {
+
+                _table.ConvertersMapping.Remove(GetPropertyName(targetPropertyExpression));
+            }
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ClearColsConverter()
+        {
+            _table.ConvertersMapping.Clear();
 
             return this;
         }

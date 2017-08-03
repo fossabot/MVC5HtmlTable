@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HtmlTableHelper.Filters;
+using HtmlTableHelper.Injectors.Converters;
+using HtmlTableHelper.Injectors.Filters;
 using HtmlTableHelper.Models;
 
 namespace HtmlTableHelper.ViewModel
@@ -22,6 +23,7 @@ namespace HtmlTableHelper.ViewModel
         public Dictionary<string, string> HeaderRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> FooterRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, IColFilter> FiltersMapping { get; set; } = new Dictionary<string, IColFilter>();
+        public Dictionary<string, IColConverter> ConvertersMapping { get; set; } = new Dictionary<string, IColConverter>();
         public TableOptions TableOptions { get; set; } = new TableOptions();
         public string RootClasses { get; set; }
     }

@@ -1,7 +1,8 @@
 ﻿@using System.Text.RegularExpressions
 @using HtmlHelperUtilisation.Models
 @using HtmlTableHelper
-@using HtmlTableHelper.Filters
+@using HtmlTableHelper.Injectors.Filters
+@using HtmlTableHelper.Injectors.Converters
 @using HtmlTableHelper.Logic
 @using HtmlTableHelper.Models
 @model  TestViewModel
@@ -12,29 +13,7 @@
     }
 </style>
 
-@Html.DisplayTable(m => m.ListTest).Exclude(m => m.Col1).Rename(m => m.Col2, "col2Test").Rename(m => m.Col3, "Col3FooterRename", Table.Part.Footer).Enable(Table.Part.Footer).Class("tableColor").Render()
-
 @using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
 {
-    table.Rename(m => m.Col1, "Col1Renamed");
-    table.ColFilter(new RegexColFilter("3"), m => m.Col2);
-    table.ColsFilter(new RegexColFilter("test"), m => m.Col3, m => m.Col2);
+    table.ColConverter(new RegexColConverter(new Regex("o"), "i"), m => m.Col1);
 }
-
-@using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
-{
-    table.Rename(m => m.Col1, "Col1Renamed");
-    table.ColFilter(new RegexColFilter("3"), m => m.Col2);
-    table.ColsFilter(new RegexColFilter("test"), m => m.Col3, m => m.Col2);
-    table.ClearColsFilter();
-}
-
-@using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
-{
-    table.Rename(m => m.Col1, "Col1Renamed");
-    table.ColFilter(new RegexColFilter("3"), m => m.Col2);
-    table.ColsFilter(new RegexColFilter("test"), m => m.Col3, m => m.Col2);
-    table.RemoveColsFilter(m => m.Col2);
-}
-
-@Html.DisplayTable(Model.ListTest).Render();
