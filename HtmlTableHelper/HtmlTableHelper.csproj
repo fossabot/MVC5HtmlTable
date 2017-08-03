@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Injectors\Converters\RegexColConverter.cs" />
     <Compile Include="Injectors\Converters\IColConverter.cs" />
+    <Compile Include="Injectors\Filters\IColFilterList.cs" />
     <Compile Include="Logic\DisposableHtmlTable.cs" />
     <Compile Include="Utils\FilesManager.cs" />
     <Compile Include="HelperContainer.cs" />
