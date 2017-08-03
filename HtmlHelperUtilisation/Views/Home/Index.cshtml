@@ -16,5 +16,5 @@
 @using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
 {
     table.ColFilter(new ColFilterList(ComparisonType.And, new RegexColFilter("2"), new RegexColFilter("1")), c => c.Col2);
-    table.ColConverter(new RegexColConverter(new Regex("o"), "i"), m => m.Col1);
+    table.ColConverter(new ColConverterList(new RegexColConverter("o", "i"), new RegexColConverter("l", "i")), m => m.Col1);
 }

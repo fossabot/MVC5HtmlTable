@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Injectors\Converters\ColConverterList.cs" />
     <Compile Include="Injectors\Converters\RegexColConverter.cs" />
     <Compile Include="Injectors\Converters\IColConverter.cs" />
     <Compile Include="Injectors\Filters\IColFilterList.cs" />
