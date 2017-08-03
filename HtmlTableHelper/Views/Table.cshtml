@@ -22,7 +22,8 @@
                 {
                     string colName = Model.Header[i];
                     string value = @row[i];
-                    <td>
+                    string classes = Model.ColsClassMapping.ContainsKey(colName) ? Model.ColsClassMapping[colName].GetClassIfFilterMatches(value) : "";
+                    <td class="@classes">
                         @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].FilterForValue(value))
                         {
                             if (Model.ConvertersMapping.ContainsKey(colName))

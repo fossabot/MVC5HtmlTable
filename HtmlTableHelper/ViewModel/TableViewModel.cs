@@ -23,6 +23,7 @@ namespace HtmlTableHelper.ViewModel
         public Dictionary<string, string> HeaderRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> FooterRenameMapping { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, IColFilter> FiltersMapping { get; set; } = new Dictionary<string, IColFilter>();
+        public Dictionary<string, ColClassFilter> ColsClassMapping { get; set; } = new Dictionary<string, ColClassFilter>();
         public Dictionary<string, IColConverter> ConvertersMapping { get; set; } = new Dictionary<string, IColConverter>();
         public TableOptions TableOptions { get; set; } = new TableOptions();
         public string RootClasses { get; set; }

@@ -149,6 +149,48 @@ namespace HtmlTableHelper.Logic
 
         #endregion
 
+        #region CLASS
+
+        public HtmlTable<TRowModel> ColClass<TCol>(IColFilter colFilter, string classes, Expression<Func<TRowModel, TCol>> targetPropertyExpression)
+        {
+            var propertyName = GetPropertyName(targetPropertyExpression);
+
+            _table.ColsClassMapping.Remove(propertyName);
+
+            if (colFilter != null)
+                _table.ColsClassMapping.Add(propertyName, new ColClassFilter(colFilter, classes));
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ColsClass<TCol>(IColFilter colFilter, string classes, params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
+        {
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
+                ColClass(colFilter, classes, targetPropertyExpression);
+            
+            return this;
+        }
+
+        public HtmlTable<TRowModel> RemoveColsClass<TCol>(params Expression<Func<TRowModel, TCol>>[] targetPropertyExpressions)
+        {
+            foreach (var targetPropertyExpression in targetPropertyExpressions)
+            {
+
+                _table.ColsClassMapping.Remove(GetPropertyName(targetPropertyExpression));
+            }
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> ClearColsClass()
+        {
+            _table.ColsClassMapping.Clear();
+
+            return this;
+        }
+
+        #endregion
+
         #region CONVERTERS
 
         public HtmlTable<TRowModel> ColConverter<TCol>(IColConverter colFilter, Expression<Func<TRowModel, TCol>> targetPropertyExpression)
