@@ -69,20 +69,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Injectors\Converters\ColConverterList.cs" />
-    <Compile Include="Injectors\Converters\RegexColConverter.cs" />
-    <Compile Include="Injectors\Converters\IColConverter.cs" />
-    <Compile Include="Injectors\Filters\IColFilterList.cs" />
     <Compile Include="Logic\DisposableHtmlTable.cs" />
+    <Compile Include="Strategies\Converters\ColConverterList.cs" />
+    <Compile Include="Strategies\Converters\IColConverter.cs" />
+    <Compile Include="Strategies\Converters\RegexColConverter.cs" />
+    <Compile Include="Strategies\Filters\IColFilter.cs" />
+    <Compile Include="Strategies\Filters\IColFilterList.cs" />
+    <Compile Include="Strategies\Filters\RegexColFilter.cs" />
+    <Compile Include="Models\DataInjectorModel.cs" />
+    <Compile Include="Strategies\Injectors\IColDataInjector.cs" />
+    <Compile Include="Strategies\Injectors\StringColDataInjector.cs" />
     <Compile Include="Utils\FilesManager.cs" />
     <Compile Include="HelperContainer.cs" />
     <Compile Include="Logic\HtmlTable.cs" />
-    <Compile Include="Injectors\Filters\IColFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\RazorWrapper.cs" />
-    <Compile Include="Injectors\Filters\RegexColFilter.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\TableOptions.cs" />
+    <Compile Include="ViewModel\ColMetaData.cs" />
     <Compile Include="ViewModel\TableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

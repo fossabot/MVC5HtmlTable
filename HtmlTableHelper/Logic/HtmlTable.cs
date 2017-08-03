@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web;
 using HtmlTableHelper.Injectors.Converters;
 using HtmlTableHelper.Injectors.Filters;
 using HtmlTableHelper.Models;
+using HtmlTableHelper.Strategies.Injectors;
 using HtmlTableHelper.Utils;
 using HtmlTableHelper.ViewModel;
 
@@ -19,6 +21,7 @@ namespace HtmlTableHelper.Logic
         #region PROPERTIES
         private readonly TableViewModel _table = new TableViewModel();
         private readonly IEnumerable<TRowModel> _rows;
+        private Dictionary<string, IColDataInjector> _addedColumnsMappin = new Dictionary<string, IColDataInjector>();
         protected readonly TextWriter Writer;
         private readonly object _model;
         public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, Writer);
@@ -31,7 +34,7 @@ namespace HtmlTableHelper.Logic
             Writer = writer;
             _model = model;
 
-            _table.Rows = new List<List<string>>();
+            _table.Rows = new List<List<IColDataInjector>>();
             _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
         }
 
@@ -40,9 +43,24 @@ namespace HtmlTableHelper.Logic
             //For each row, add the value of each column to the model
             foreach (var row in _rows)
             {
-                var values = _table.Header.Select(col => typeof(TRowModel).GetProperty(col)?.GetValue(row, null).ToString()).ToList();
+                var values = _table.Header.Select(col => GetColValueInRow(col, row)).ToList();
                 _table.Rows.Add(values);
+
             }
+        }
+
+        private IColDataInjector GetColValueInRow(string col, TRowModel row)
+        {
+            var property = typeof(TRowModel).GetProperty(col);
+
+
+            var value = property?.GetValue(row, null).ToString();
+
+            if (value == null && _addedColumnsMappin.ContainsKey(col))
+                return _addedColumnsMappin[col];
+
+
+            return new StringColDataInjector(value);
         }
 
         public IHtmlString Render()
@@ -149,6 +167,38 @@ namespace HtmlTableHelper.Logic
 
         #endregion
 
+        #region INJECTORS
+
+        public HtmlTable<TRowModel> AddColumn(string colName, IColDataInjector injector)
+        {
+            _table.Header.Remove(colName);
+            _table.Header.Add(colName);
+            _addedColumnsMappin.Add(colName, injector);
+
+            return this;
+        }
+
+        public HtmlTable<TRowModel> SetColumn(string colName, IColDataInjector injector)
+        {
+            AddColumn(colName, injector);
+            return this;
+        }
+        
+        public HtmlTable<TRowModel> AddColumn(string colName, string injectorValue)
+        {
+            AddColumn(colName, new StringColDataInjector(injectorValue));
+
+            return this;
+        }
+        
+        public HtmlTable<TRowModel> SetColumn(string colName, string injectorValue)
+        {
+            AddColumn(colName, new StringColDataInjector(injectorValue));
+            return this;
+        }
+
+        #endregion
+
         #region CLASS
 
         public HtmlTable<TRowModel> ColClass<TCol>(IColFilter colFilter, string classes, Expression<Func<TRowModel, TCol>> targetPropertyExpression)
@@ -167,7 +217,7 @@ namespace HtmlTableHelper.Logic
         {
             foreach (var targetPropertyExpression in targetPropertyExpressions)
                 ColClass(colFilter, classes, targetPropertyExpression);
-            
+
             return this;
         }
 

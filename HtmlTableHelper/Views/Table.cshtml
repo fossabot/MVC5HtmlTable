@@ -1,4 +1,6 @@
-﻿@model HtmlTableHelper.ViewModel.TableViewModel
+﻿@using HtmlTableHelper.Models
+@using HtmlTableHelper.Strategies.Injectors
+@model HtmlTableHelper.ViewModel.TableViewModel
 
 <table class="@Model.RootClasses">
     @if (Model.TableOptions.IsHeaderEnabled)
@@ -15,13 +17,13 @@
         </thead>
     }
     <tbody>
-        @foreach (List<string> row in Model.Rows)
+        @foreach (List<IColDataInjector> row in Model.Rows)
         {
             <tr>
                 @for (int i = 0; i < Model.Header.Count; i++)
                 {
                     string colName = Model.Header[i];
-                    string value = @row[i];
+                    string value = @row[i].GetData(new DataInjectorModel());
                     string classes = Model.ColsClassMapping.ContainsKey(colName) ? Model.ColsClassMapping[colName].GetClassIfFilterMatches(value) : "";
                     <td class="@classes">
                         @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].FilterForValue(value))
