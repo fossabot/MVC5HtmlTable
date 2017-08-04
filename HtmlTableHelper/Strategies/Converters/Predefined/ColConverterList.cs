@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HtmlTableHelper.Injectors.Converters;
 
-namespace HtmlTableHelper.Injectors.Converters
+namespace HtmlTableHelper.Strategies.Converters.Predefined
 {
     public class ColConverterList : IColConverter
     {

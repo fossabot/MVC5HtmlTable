@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
+using HtmlTableHelper.Injectors.Filters;
 
-namespace HtmlTableHelper.Injectors.Filters
+namespace HtmlTableHelper.Strategies.Filters.Predefined
 {
     public class RegexColFilter : IColFilter
     {

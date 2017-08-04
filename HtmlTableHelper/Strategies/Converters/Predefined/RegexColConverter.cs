@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-using System.Web;
+using HtmlTableHelper.Injectors.Converters;
 
-namespace HtmlTableHelper.Injectors.Converters
+namespace HtmlTableHelper.Strategies.Converters.Predefined
 {
     public class RegexColConverter : IColConverter
     {
