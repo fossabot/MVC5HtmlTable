@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HtmlTableHelper
+namespace HtmlTableHelper.Models
 {
     public class TableOptions
     {
