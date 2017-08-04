@@ -1,6 +1,6 @@
 using HtmlTableHelper.Models;
 
-namespace HtmlTableHelper.Strategies.Injectors
+namespace HtmlTableHelper.Strategies.Injectors.Predefined
 {
     public class StringColDataInjector : IColDataInjector
     {

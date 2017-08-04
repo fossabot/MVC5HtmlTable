@@ -70,15 +70,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\DisposableHtmlTable.cs" />
-    <Compile Include="Strategies\Converters\ColConverterList.cs" />
+    <Compile Include="Strategies\Converters\Predefined\ColConverterList.cs" />
     <Compile Include="Strategies\Converters\IColConverter.cs" />
-    <Compile Include="Strategies\Converters\RegexColConverter.cs" />
+    <Compile Include="Strategies\Converters\Predefined\RegexColConverter.cs" />
+    <Compile Include="Strategies\Filters\Predefined\ColFilterList.cs" />
     <Compile Include="Strategies\Filters\IColFilter.cs" />
-    <Compile Include="Strategies\Filters\IColFilterList.cs" />
-    <Compile Include="Strategies\Filters\RegexColFilter.cs" />
+    <Compile Include="Strategies\Filters\Predefined\RegexColFilter.cs" />
     <Compile Include="Models\DataInjectorModel.cs" />
     <Compile Include="Strategies\Injectors\IColDataInjector.cs" />
-    <Compile Include="Strategies\Injectors\StringColDataInjector.cs" />
+    <Compile Include="Strategies\Injectors\Predefined\StringColDataInjector.cs" />
     <Compile Include="Utils\FilesManager.cs" />
     <Compile Include="HelperContainer.cs" />
     <Compile Include="Logic\HtmlTable.cs" />

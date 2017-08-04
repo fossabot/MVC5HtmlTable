@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using HtmlTableHelper.Injectors.Filters;
 
-namespace HtmlTableHelper.Injectors.Filters
+namespace HtmlTableHelper.Strategies.Filters.Predefined
 {
     public class ColFilterList : IColFilter
     {
@@ -39,7 +40,6 @@ namespace HtmlTableHelper.Injectors.Filters
             return rtrn;
         }
     }
-
     public enum ComparisonType
     {
         Or,
