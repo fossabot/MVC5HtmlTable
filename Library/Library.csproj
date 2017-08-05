@@ -67,6 +67,7 @@
     <Compile Include="Strategies\Converters\Predefined\ColConverterList.cs" />
     <Compile Include="Strategies\Converters\IColConverter.cs" />
     <Compile Include="Strategies\Converters\Predefined\RegexColConverter.cs" />
+    <Compile Include="Strategies\Filters\ColClassFilter.cs" />
     <Compile Include="Strategies\Filters\Predefined\ColFilterList.cs" />
     <Compile Include="Strategies\Filters\IColFilter.cs" />
     <Compile Include="Strategies\Filters\Predefined\RegexColFilter.cs" />

@@ -3,6 +3,7 @@ using System.Linq;
 using HtmlTable.Models;
 using HtmlTable.Strategies.Converters;
 using HtmlTable.Strategies.Filters;
+using HtmlTable.Strategies.Filters.Predefined;
 using HtmlTable.Strategies.Injectors;
 
 namespace HtmlTable.ViewModel
