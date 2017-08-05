@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Library.Strategies.Converters.Predefined
+namespace HtmlTable.Strategies.Converters.Predefined
 {
     public class RegexColConverter : IColConverter
     {

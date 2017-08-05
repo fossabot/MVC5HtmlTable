@@ -1,4 +1,4 @@
-namespace Library.Strategies.Filters
+namespace HtmlTable.Strategies.Filters
 {
     public interface IColFilter
     {

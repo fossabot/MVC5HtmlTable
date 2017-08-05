@@ -1,6 +1,6 @@
-﻿using Library.Models;
+﻿using HtmlTable.Models;
 
-namespace Library.Strategies.Injectors
+namespace HtmlTable.Strategies.Injectors
 {
     public interface IColDataInjector
     {

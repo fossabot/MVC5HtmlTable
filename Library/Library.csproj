@@ -7,7 +7,7 @@
     <ProjectGuid>{10792AA7-D58A-4D7B-9871-73C2A03DED06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Library</RootNamespace>
+    <RootNamespace>HtmlTable</RootNamespace>
     <AssemblyName>Library</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

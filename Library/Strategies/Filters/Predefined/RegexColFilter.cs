@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Library.Strategies.Filters.Predefined
+namespace HtmlTable.Strategies.Filters.Predefined
 {
     public class RegexColFilter : IColFilter
     {

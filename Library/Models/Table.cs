@@ -1,4 +1,4 @@
-﻿namespace Library.Models {
+﻿namespace HtmlTable.Models {
     public class Table
     {
         public enum Part

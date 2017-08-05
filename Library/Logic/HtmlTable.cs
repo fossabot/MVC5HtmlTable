@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Web;
-using Library.Models;
-using Library.Strategies.Converters;
-using Library.Strategies.Filters;
-using Library.Strategies.Injectors;
-using Library.Strategies.Injectors.Predefined;
-using Library.Utils;
-using Library.ViewModel;
+using HtmlTable.Models;
+using HtmlTable.Strategies.Converters;
+using HtmlTable.Strategies.Filters;
+using HtmlTable.Strategies.Injectors;
+using HtmlTable.Strategies.Injectors.Predefined;
+using HtmlTable.Utils;
+using HtmlTable.ViewModel;
 
-namespace Library.Logic
+namespace HtmlTable.Logic
 {
     /// <summary>
     /// Container for the fluent API - Generate the HTML table by calling <see cref="Render()"/>
@@ -34,7 +33,7 @@ namespace Library.Logic
 
         private readonly TableViewModel _table = new TableViewModel();
         private readonly IEnumerable<TRowModel> _rows;
-        private Dictionary<string, IColDataInjector> _addedColumnsMappin = new Dictionary<string, IColDataInjector>();
+        private readonly Dictionary<string, IColDataInjector> _addedColumnsMappin = new Dictionary<string, IColDataInjector>();
         private readonly object _model;
 
         protected readonly TextWriter Writer;
@@ -148,7 +147,9 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Changes the name of a property displayed in the header of the HTML table. This will override the setting defined in <see cref="Rename{TCol}(Expression{Func{TRowModel,TCol}},string)"></see>
+        /// Changes the name of a property displayed in the header of the HTML table. This will override the setting defined in <see>
+        ///         <cref>Rename{TCol}(Expression{Func{TRowModel,TCol}},string)</cref>
+        ///     </see>
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="targetPropertyExpression"></param>
@@ -162,7 +163,9 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Changes the name of a property displayed in the footer of the HTML table. This will override the setting defined in <see cref="Rename{TCol}(Expression{Func{TRowModel,TCol}},string)"></see>
+        /// Changes the name of a property displayed in the footer of the HTML table. This will override the setting defined in <see>
+        ///         <cref>Rename{TCol}(Expression{Func{TRowModel,TCol}},string)</cref>
+        ///     </see>
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="targetPropertyExpression"></param>
@@ -199,7 +202,7 @@ namespace Library.Logic
         #region FITLERS
 
         /// <summary>
-        /// Allows to add a custom filtering strategy on a column. Implement the <see cref="IColFilter"/> interface to pass a custom made filter to <paramref name="colFilter"/> or use the pre-defined filters located in <see cref="Library.Strategies.Filters.Predefined"/> namespace
+        /// Allows to add a custom filtering strategy on a column. Implement the <see cref="IColFilter"/> interface to pass a custom made filter to <paramref name="colFilter"/> or use the pre-defined filters located in <see cref="Strategies.Filters.Predefined"/> namespace
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="colFilter">An implementation of <see cref="IColFilter"/>. Make your own or use the ones predefined in the <see cref="Strategies.Filters.Predefined"/> namespace</param>
@@ -281,7 +284,7 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Alias for <see cref="AddColumn(string,Library.Strategies.Injectors.IColDataInjector)"/> 
+        /// Alias for <see cref="AddColumn(string,HtmlTable.Strategies.Injectors.IColDataInjector)"/> 
         /// </summary>
         /// <param name="colName"></param>
         /// <param name="injector">An implementation of <see cref="IColDataInjector"/>. Make your own or use the ones predefined in the <see cref="Strategies.Filters.Predefined"/> namespace</param>

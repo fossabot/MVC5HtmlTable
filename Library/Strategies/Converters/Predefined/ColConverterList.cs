@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.Strategies.Converters.Predefined
+namespace HtmlTable.Strategies.Converters.Predefined
 {
     public class ColConverterList : IColConverter
     {

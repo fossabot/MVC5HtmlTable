@@ -1,4 +1,4 @@
-﻿namespace Library.Strategies.Converters
+﻿namespace HtmlTable.Strategies.Converters
 {
     public interface IColConverter
     {

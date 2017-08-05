@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Library.Logic
+namespace HtmlTable.Logic
 {
     public class DisposableHtmlTable<TRowModel> : HtmlTable<TRowModel>, IDisposable
     {

@@ -1,6 +1,6 @@
-using Library.Models;
+using HtmlTable.Models;
 
-namespace Library.Strategies.Injectors.Predefined
+namespace HtmlTable.Strategies.Injectors.Predefined
 {
     public class StringColDataInjector : IColDataInjector
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
-using Library.Logic;
+using HtmlTable.Logic;
 
-namespace Library
+namespace HtmlTable
 {
     public static class TableHelpers
     {

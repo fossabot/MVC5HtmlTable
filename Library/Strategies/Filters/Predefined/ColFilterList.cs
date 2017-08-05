@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.Strategies.Filters.Predefined
+namespace HtmlTable.Strategies.Filters.Predefined
 {
     public class ColFilterList : IColFilter
     {
