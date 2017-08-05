@@ -16,7 +16,7 @@ namespace Library.Strategies.Injectors.Predefined
             return _value;
         }
 
-        static public implicit operator StringColDataInjector(string inputStr)
+        public static implicit operator StringColDataInjector(string inputStr)
         {
             return new StringColDataInjector(inputStr);
         }

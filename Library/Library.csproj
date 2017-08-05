@@ -80,7 +80,6 @@
     <Compile Include="Utils\RazorWrapper.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\TableOptions.cs" />
-    <Compile Include="ViewModel\ColMetaData.cs" />
     <Compile Include="ViewModel\TableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

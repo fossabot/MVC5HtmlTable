@@ -7,7 +7,7 @@ using Library.Strategies.Injectors;
 
 namespace Library.ViewModel
 {
-    public class TableViewModel
+    internal class TableViewModel
     {
         public List<string> Header { get; set; }
 

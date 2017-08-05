@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Library.Utils
 {
-    public static class FilesManager
+    internal static class FilesManager
     {
         private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
         public static string TableView => File.ReadAllText($"{ViewsPath}/Table.cshtml");

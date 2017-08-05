@@ -6,7 +6,7 @@ using RazorEngine.Templating;
 
 namespace Library.Utils
 {
-    public static class RazorWrapper
+    internal static class RazorWrapper
     {
         private static readonly StringBuilder Str = new StringBuilder();
 

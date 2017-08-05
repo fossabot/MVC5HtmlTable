@@ -2,7 +2,7 @@
 
 namespace Library.Models
 {
-    public class TableOptions
+    internal class TableOptions
     {
         public Dictionary<Table.Part, bool> PartsStatus { get; set; } = new Dictionary<Table.Part, bool>
         {
