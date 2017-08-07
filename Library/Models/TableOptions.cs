@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Library.Models
+namespace HtmlTable.Models
 {
-    internal class TableOptions
+    public class TableOptions
     {
         public Dictionary<Table.Part, bool> PartsStatus { get; set; } = new Dictionary<Table.Part, bool>
         {

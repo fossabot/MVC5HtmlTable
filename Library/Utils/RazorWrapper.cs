@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using System.Web.Mvc;
-using Library.ViewModel;
+using HtmlTable.ViewModel;
 using RazorEngine;
 using RazorEngine.Templating;
 
-namespace Library.Utils
+namespace HtmlTable.Utils
 {
     internal static class RazorWrapper
     {

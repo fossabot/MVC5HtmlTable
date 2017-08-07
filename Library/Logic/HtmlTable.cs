@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Web;
-using Library.Models;
-using Library.Strategies.Converters;
-using Library.Strategies.Filters;
-using Library.Strategies.Injectors;
-using Library.Strategies.Injectors.Predefined;
-using Library.Utils;
-using Library.ViewModel;
+using HtmlTable.Models;
+using HtmlTable.Strategies.Converters;
+using HtmlTable.Strategies.Filters;
+using HtmlTable.Strategies.Filters.Predefined;
+using HtmlTable.Strategies.Injectors;
+using HtmlTable.Strategies.Injectors.Predefined;
+using HtmlTable.Utils;
+using HtmlTable.ViewModel;
 
-namespace Library.Logic
+namespace HtmlTable.Logic
 {
     /// <summary>
     /// Container for the fluent API - Generate the HTML table by calling <see cref="Render()"/>
@@ -32,9 +32,21 @@ namespace Library.Logic
 
         #region PROPERTIES
 
+        /// <summary>
+        /// Contains the final settings for the razor engine to render the HTML talbe
+        /// </summary>
         private readonly TableViewModel _table = new TableViewModel();
+        /// <summary>
+        /// Contains the final data for the razor engine to fill the HTML table
+        /// </summary>
         private readonly IEnumerable<TRowModel> _rows;
-        private Dictionary<string, IColDataInjector> _addedColumnsMappin = new Dictionary<string, IColDataInjector>();
+        /// <summary>
+        /// Contains the definition for the virtual columns. <see cref="AddColumn(string,HtmlTable.Strategies.Injectors.IColDataInjector)"/>
+        /// </summary>
+        private readonly Dictionary<string, IColDataInjector> _addedColumnsMappin = new Dictionary<string, IColDataInjector>();
+        /// <summary>
+        /// The razor ViewModel - used to allow strong typing of generics and lambdas
+        /// </summary>
         private readonly object _model;
 
         protected readonly TextWriter Writer;
@@ -43,10 +55,12 @@ namespace Library.Logic
         /// Returns a <see cref="DisposableHtmlTable{TRowModel}"/> builts from the current <see cref="HtmlTable{TRowModel}"/>, which implements the <see cref="IDisposable"/> interface to be used with the <c>using()</c> syntaxe.
         /// When created this way, there is no need to call <see cref="Render"/>, this will be automatically handled the object is being disposed
         /// <example>
+        /// <code>
         /// @using (var table = Html.DisplayTable(m => m.ListTest).Begin)
         /// {
         ///     // Add code to configure the HTML tabel
         /// }
+        /// </code>
         /// </example>
         /// </summary>
         public DisposableHtmlTable<TRowModel> Begin => new DisposableHtmlTable<TRowModel>(_model, _rows, Writer);
@@ -69,6 +83,9 @@ namespace Library.Logic
             _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
         }
 
+        /// <summary>
+        /// Update the view model, inserts the data rows using the give configuration
+        /// </summary>
         private void GenerateRows()
         {
             //For each row, add the value of each column to the model
@@ -80,6 +97,12 @@ namespace Library.Logic
             }
         }
 
+        /// <summary>
+        /// Get the value for a given column in a given row (from the use)
+        /// </summary>
+        /// <param name="col">The string name of the column (name of the property)</param>
+        /// <param name="row">The row from which to extract the data</param>
+        /// <returns></returns>
         private IColDataInjector GetColValueInRow(string col, TRowModel row)
         {
             var property = typeof(TRowModel).GetProperty(col);
@@ -120,6 +143,12 @@ namespace Library.Logic
             return this;
         }
 
+        /// <summary>
+        /// Returns a string containing the name of the property tardeted by the lambda expression
+        /// </summary>
+        /// <typeparam name="TCol"></typeparam>
+        /// <param name="expression">A lambda expression targetting a property like <c>table.Exclude(rowModel =&gt; rowModel.Col1)</c></param>
+        /// <returns></returns>
         private static string GetPropertyName<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
             var member = expression.Body as MemberExpression;
@@ -148,7 +177,7 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Changes the name of a property displayed in the header of the HTML table. This will override the setting defined in <see cref="Rename{TCol}(Expression{Func{TRowModel,TCol}},string)"></see>
+        /// Changes the name of a property displayed in the header of the HTML table. This will override the setting defined in <see cref="Rename{TCol}(Expression{Func{TRowModel,TCol}},string)"/>
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="targetPropertyExpression"></param>
@@ -162,7 +191,9 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Changes the name of a property displayed in the footer of the HTML table. This will override the setting defined in <see cref="Rename{TCol}(Expression{Func{TRowModel,TCol}},string)"></see>
+        /// Changes the name of a property displayed in the footer of the HTML table. This will override the setting defined in <see>
+        ///         <cref>Rename{TCol}(Expression{Func{TRowModel,TCol}},string)</cref>
+        ///     </see>
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="targetPropertyExpression"></param>
@@ -199,7 +230,7 @@ namespace Library.Logic
         #region FITLERS
 
         /// <summary>
-        /// Allows to add a custom filtering strategy on a column. Implement the <see cref="IColFilter"/> interface to pass a custom made filter to <paramref name="colFilter"/> or use the pre-defined filters located in <see cref="Library.Strategies.Filters.Predefined"/> namespace
+        /// Allows to add a custom filtering strategy on a column. Implement the <see cref="IColFilter"/> interface to pass a custom made filter to <paramref name="colFilter"/> or use the pre-defined filters located in <see cref="Strategies.Filters.Predefined"/> namespace
         /// </summary>
         /// <typeparam name="TCol"></typeparam>
         /// <param name="colFilter">An implementation of <see cref="IColFilter"/>. Make your own or use the ones predefined in the <see cref="Strategies.Filters.Predefined"/> namespace</param>
@@ -281,7 +312,7 @@ namespace Library.Logic
         }
 
         /// <summary>
-        /// Alias for <see cref="AddColumn(string,Library.Strategies.Injectors.IColDataInjector)"/> 
+        /// Alias for <see cref="AddColumn(string,HtmlTable.Strategies.Injectors.IColDataInjector)"/> 
         /// </summary>
         /// <param name="colName"></param>
         /// <param name="injector">An implementation of <see cref="IColDataInjector"/>. Make your own or use the ones predefined in the <see cref="Strategies.Filters.Predefined"/> namespace</param>

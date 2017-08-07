@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Library.Models;
-using Library.Strategies.Converters;
-using Library.Strategies.Filters;
-using Library.Strategies.Injectors;
+using HtmlTable.Models;
+using HtmlTable.Strategies.Converters;
+using HtmlTable.Strategies.Filters;
+using HtmlTable.Strategies.Filters.Predefined;
+using HtmlTable.Strategies.Injectors;
 
-namespace Library.ViewModel
+namespace HtmlTable.ViewModel
 {
-    internal class TableViewModel
+    public class TableViewModel
     {
         public List<string> Header { get; set; }
 

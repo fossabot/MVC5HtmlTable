@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Library.Utils
+namespace HtmlTable.Utils
 {
     internal static class FilesManager
     {
