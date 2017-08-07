@@ -1,0 +1,54 @@
+﻿@using HtmlTable.Models
+@using HtmlTable.Strategies.Injectors
+@model HtmlTable.ViewModel.TableViewModel
+<table class="@Model.RootClasses">
+    @if (Model.TableOptions.IsHeaderEnabled)
+    {
+        <thead>
+            <tr>
+                @foreach (string col in Model.RenamedHeader)
+                {
+                    <th>
+                        @col
+                    </th>
+                }
+            </tr>
+        </thead>
+    }
+    <tbody>
+        @foreach (List<IColDataInjector> row in Model.Rows)
+        {
+            <tr>
+                @for (int i = 0; i < Model.Header.Count; i++)
+                {
+                    string colName = Model.Header[i];
+                    string value = @row[i].GetData(new DataInjectorModel());
+                    string classes = Model.ColsClassMapping.ContainsKey(colName) ? Model.ColsClassMapping[colName].GetClassIfFilterMatches(value) : "";
+                    <td class="@classes">
+                        @if (!Model.FiltersMapping.ContainsKey(colName) || Model.FiltersMapping[colName].FilterForValue(value))
+                        {
+                            if (Model.ConvertersMapping.ContainsKey(colName))
+                            {
+                                value = Model.ConvertersMapping[colName].Convert(value);
+                            }
+                            @value
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+    @if (Model.TableOptions.IsFooterEnabled)
+    {
+        <tfoot>
+            <tr>
+                @foreach (string col in Model.RenamedFooter)
+                {
+                    <th>
+                        @col
+                    </th>
+                }
+            </tr>
+        </tfoot>
+    }
+</table>
