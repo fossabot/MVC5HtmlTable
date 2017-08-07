@@ -1,6 +1,6 @@
-Libraries
 # C# MVC5 Enumerable to HTML table c#.NET
 
+[![wndrr MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr?identifier=22318d40-5a11-4ebf-9fe3-36c2e24e05f5)](https://www.myget.org/)
 
 This c#.NET MVC5 library was is still in heavy developpement. It's an alpha release, so basically don't use that in your prod environment (yet). This means that i haven't taken the time to properly test it, and that it doesn't yet implement all of the features I intend it to contain.
 
