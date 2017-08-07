@@ -18,6 +18,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="MVC5HtmlTable\Library\bin\Library.dll" target="lib\net40\" />
+    <file src="MVC5HtmlTable\Library\bin\MVC5HtmlTable.dll" target="lib\net40\" />
   </files>
 </package>
