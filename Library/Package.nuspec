@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MVC5HtmlTable</id>
-    <version>$version$</version>
+    <version>1.0.0</version>
     <authors>Wndrr</authors>
     <owners>Wndrr</owners>
     <licenseUrl>https://github.com/Wndrr/MVC5HtmlTable/blob/master/README.md</licenseUrl>
@@ -10,14 +10,8 @@
     <iconUrl>http://via.placeholder.com/350x150</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MVC5 Html Table helper</description>
-    <releaseNotes>Test</releaseNotes>
+    <releaseNotes>This should be the first proper release</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Tag1 Tag2</tags>
-    <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
-    </dependencies>
+    <tags>HTMLHelper MVC5 Table</tags>
   </metadata>
-  <files>
-    <file src="MVC5HtmlTable\Library\bin\MVC5HtmlTable.dll" target="lib\net40\" />
-  </files>
 </package>
