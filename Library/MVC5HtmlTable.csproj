@@ -86,7 +86,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="global.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Table.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
