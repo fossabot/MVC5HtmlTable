@@ -4,9 +4,21 @@ using System.Reflection;
 
 namespace HtmlTable.Utils
 {
+    /// <summary>
+    /// Simplistic file manager to retrieve the Views\Table.cshtml Razor view
+    /// </summary>
     internal static class FilesManager
     {
-        private static readonly string ViewsPath = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
-        public static string TableView => File.ReadAllText($"{ViewsPath}/Table.cshtml");
+        /// <summary>
+        /// Generate the path to reach the targeted Rarzor view
+        /// </summary>
+        private static readonly string PathToViewsDirectory = Path.Combine(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "").LocalPath, "Views");
+
+        private static string TableRazorViewName => "Table.cshtml";
+
+        /// <summary>
+        /// Returns the full path to access the Razor view
+        /// </summary>
+        public static string PathToTableRazorView => File.ReadAllText($"{PathToViewsDirectory}/{TableRazorViewName}");
     }
 }
