@@ -214,12 +214,12 @@ namespace HtmlTable.Logic
         /// <param name="newName"></param>
         /// <param name="part"></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName, Table.Part part)
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName, TableOption.Part part)
         {
-            if (part == Table.Part.Header)
+            if (part == TableOption.Part.Header)
                 RenameHeader(targetPropertyExpression, newName);
 
-            if (part == Table.Part.Footer)
+            if (part == TableOption.Part.Footer)
                 RenameFooter(targetPropertyExpression, newName);
 
             return this;
@@ -422,9 +422,9 @@ namespace HtmlTable.Logic
         /// <summary>
         /// Hides a given part of the table (thead/tbody)
         /// </summary>
-        /// <param name="part"><see cref="Table.Part.Header"/> or <see cref="Table.Part.Footer"/></param>
+        /// <param name="part"><see cref="TableOption.Part.Header"/> or <see cref="TableOption.Part.Footer"/></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Disable(Table.Part part)
+        public HtmlTable<TRowModel> Disable(TableOption.Part part)
         {
             Toggle(part, false);
 
@@ -434,9 +434,9 @@ namespace HtmlTable.Logic
         /// <summary>
         /// Shows a given part of the table (thead/tbody)
         /// </summary>
-        /// <param name="part"><see cref="Table.Part.Header"/> or <see cref="Table.Part.Footer"/></param>
+        /// <param name="part"><see cref="TableOption.Part.Header"/> or <see cref="TableOption.Part.Footer"/></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Enable(Table.Part part)
+        public HtmlTable<TRowModel> Enable(TableOption.Part part)
         {
             Toggle(part, true);
 
@@ -449,7 +449,7 @@ namespace HtmlTable.Logic
         /// <param name="part"></param>
         /// <param name="val"></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Toggle(Table.Part part, bool? val = null)
+        public HtmlTable<TRowModel> Toggle(TableOption.Part part, bool? val = null)
         {
             bool value;
 
