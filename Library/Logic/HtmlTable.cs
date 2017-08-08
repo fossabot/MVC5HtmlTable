@@ -80,7 +80,7 @@ namespace HtmlTable.Logic
             _model = model;
 
             _table.Rows = new List<List<IColDataInjector>>();
-            _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
+            _table.ColumnsName = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace HtmlTable.Logic
             //For each row, add the value of each column to the model
             foreach (var row in _rows)
             {
-                var values = _table.Header.Select(col => GetColValueInRow(col, row)).ToList();
+                var values = _table.ColumnsName.Select(col => GetColValueInRow(col, row)).ToList();
                 _table.Rows.Add(values);
 
             }
@@ -138,7 +138,7 @@ namespace HtmlTable.Logic
         public HtmlTable<TRowModel> Exclude<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
             var propertyName = GetPropertyName(expression);
-            _table.Header.Remove(propertyName);
+            _table.ColumnsName.Remove(propertyName);
 
             return this;
         }
@@ -304,8 +304,8 @@ namespace HtmlTable.Logic
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
         public HtmlTable<TRowModel> AddColumn(string colName, IColDataInjector injector)
         {
-            _table.Header.Remove(colName);
-            _table.Header.Add(colName);
+            _table.ColumnsName.Remove(colName);
+            _table.ColumnsName.Add(colName);
             _addedColumnsMappin.Add(colName, injector);
 
             return this;
