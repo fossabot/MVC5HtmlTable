@@ -80,7 +80,7 @@ namespace HtmlTable.Logic
             _model = model;
 
             _table.Rows = new List<List<IColDataInjector>>();
-            _table.Header = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
+            _table.ColumnsName = typeof(TRowModel).GetProperties().Select(p => p.Name).ToList();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace HtmlTable.Logic
             //For each row, add the value of each column to the model
             foreach (var row in _rows)
             {
-                var values = _table.Header.Select(col => GetColValueInRow(col, row)).ToList();
+                var values = _table.ColumnsName.Select(col => GetColValueInRow(col, row)).ToList();
                 _table.Rows.Add(values);
 
             }
@@ -138,7 +138,7 @@ namespace HtmlTable.Logic
         public HtmlTable<TRowModel> Exclude<TCol>(Expression<Func<TRowModel, TCol>> expression)
         {
             var propertyName = GetPropertyName(expression);
-            _table.Header.Remove(propertyName);
+            _table.ColumnsName.Remove(propertyName);
 
             return this;
         }
@@ -214,12 +214,12 @@ namespace HtmlTable.Logic
         /// <param name="newName"></param>
         /// <param name="part"></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName, Table.Part part)
+        public HtmlTable<TRowModel> Rename<TCol>(Expression<Func<TRowModel, TCol>> targetPropertyExpression, string newName, TableOption.Part part)
         {
-            if (part == Table.Part.Header)
+            if (part == TableOption.Part.Header)
                 RenameHeader(targetPropertyExpression, newName);
 
-            if (part == Table.Part.Footer)
+            if (part == TableOption.Part.Footer)
                 RenameFooter(targetPropertyExpression, newName);
 
             return this;
@@ -304,8 +304,8 @@ namespace HtmlTable.Logic
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
         public HtmlTable<TRowModel> AddColumn(string colName, IColDataInjector injector)
         {
-            _table.Header.Remove(colName);
-            _table.Header.Add(colName);
+            _table.ColumnsName.Remove(colName);
+            _table.ColumnsName.Add(colName);
             _addedColumnsMappin.Add(colName, injector);
 
             return this;
@@ -422,9 +422,9 @@ namespace HtmlTable.Logic
         /// <summary>
         /// Hides a given part of the table (thead/tbody)
         /// </summary>
-        /// <param name="part"><see cref="Table.Part.Header"/> or <see cref="Table.Part.Footer"/></param>
+        /// <param name="part"><see cref="TableOption.Part.Header"/> or <see cref="TableOption.Part.Footer"/></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Disable(Table.Part part)
+        public HtmlTable<TRowModel> Disable(TableOption.Part part)
         {
             Toggle(part, false);
 
@@ -434,9 +434,9 @@ namespace HtmlTable.Logic
         /// <summary>
         /// Shows a given part of the table (thead/tbody)
         /// </summary>
-        /// <param name="part"><see cref="Table.Part.Header"/> or <see cref="Table.Part.Footer"/></param>
+        /// <param name="part"><see cref="TableOption.Part.Header"/> or <see cref="TableOption.Part.Footer"/></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Enable(Table.Part part)
+        public HtmlTable<TRowModel> Enable(TableOption.Part part)
         {
             Toggle(part, true);
 
@@ -449,13 +449,13 @@ namespace HtmlTable.Logic
         /// <param name="part"></param>
         /// <param name="val"></param>
         /// <returns>Returns the current <see cref="HtmlTable{TRowModel}"/> instance to allow method chaining</returns>
-        public HtmlTable<TRowModel> Toggle(Table.Part part, bool? val = null)
+        public HtmlTable<TRowModel> Toggle(TableOption.Part part, bool? val = null)
         {
             bool value;
 
             if (val == null)
             {
-                if (_table.TableOptions.PartsStatus.ContainsKey(part) && _table.TableOptions.PartsStatus[part])
+                if (_table.TableOptions.PartsDispalyMapping.ContainsKey(part) && _table.TableOptions.PartsDispalyMapping[part])
                     value = false;
                 else
                     value = true;
@@ -464,11 +464,11 @@ namespace HtmlTable.Logic
             else
                 value = (bool)val;
 
-            if (_table.TableOptions.PartsStatus.ContainsKey(part))
-                _table.TableOptions.PartsStatus[part] = value;
+            if (_table.TableOptions.PartsDispalyMapping.ContainsKey(part))
+                _table.TableOptions.PartsDispalyMapping[part] = value;
 
             else
-                _table.TableOptions.PartsStatus.Add(part, value);
+                _table.TableOptions.PartsDispalyMapping.Add(part, value);
 
             return this;
         }
