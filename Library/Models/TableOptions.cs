@@ -1,15 +1,30 @@
 ﻿using System.Collections.Generic;
+using HtmlTable.Logic;
 
 namespace HtmlTable.Models
 {
+    /// <summary>
+    /// The list of currently set options
+    /// </summary>
     public class TableOptions
     {
-        public Dictionary<Table.Part, bool> PartsStatus { get; set; } = new Dictionary<Table.Part, bool>
+        /// <summary>
+        /// Maps a <see cref="TableOption.Part"/> to a boolean telling if the given part should be shown or hidden in the rendered table
+        /// </summary>
+        public Dictionary<TableOption.Part, bool> PartsDispalyMapping { get; set; } = new Dictionary<TableOption.Part, bool>
         {
-            {Table.Part.Header, true },
-            {Table.Part.Footer, false }
+            {TableOption.Part.Header, true },
+            {TableOption.Part.Footer, false }
         };
-        public bool IsHeaderEnabled => PartsStatus.ContainsKey(Table.Part.Header) && PartsStatus[Table.Part.Header];
-        public bool IsFooterEnabled => PartsStatus.ContainsKey(Table.Part.Footer) && PartsStatus[Table.Part.Footer];
+
+        /// <summary>
+        /// Uses the <see cref="PartsDispalyMapping"/> proprety to know wether the generate HTML table should have a header section
+        ///  </summary>
+        public bool IsHeaderEnabled => PartsDispalyMapping.ContainsKey(TableOption.Part.Header) && PartsDispalyMapping[TableOption.Part.Header];
+
+        /// <summary>
+        /// Uses the <see cref="PartsDispalyMapping"/> proprety to know wether the generate HTML table should have a footer section
+        ///  </summary>
+        public bool IsFooterEnabled => PartsDispalyMapping.ContainsKey(TableOption.Part.Footer) && PartsDispalyMapping[TableOption.Part.Footer];
     }
 }
