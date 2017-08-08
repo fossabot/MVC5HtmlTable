@@ -455,7 +455,7 @@ namespace HtmlTable.Logic
 
             if (val == null)
             {
-                if (_table.TableOptions.PartsStatus.ContainsKey(part) && _table.TableOptions.PartsStatus[part])
+                if (_table.TableOptions.PartsDispalyMapping.ContainsKey(part) && _table.TableOptions.PartsDispalyMapping[part])
                     value = false;
                 else
                     value = true;
@@ -464,11 +464,11 @@ namespace HtmlTable.Logic
             else
                 value = (bool)val;
 
-            if (_table.TableOptions.PartsStatus.ContainsKey(part))
-                _table.TableOptions.PartsStatus[part] = value;
+            if (_table.TableOptions.PartsDispalyMapping.ContainsKey(part))
+                _table.TableOptions.PartsDispalyMapping[part] = value;
 
             else
-                _table.TableOptions.PartsStatus.Add(part, value);
+                _table.TableOptions.PartsDispalyMapping.Add(part, value);
 
             return this;
         }
