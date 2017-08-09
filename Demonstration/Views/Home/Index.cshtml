@@ -13,7 +13,7 @@
     }
 </style>
 
-@using (DisposableHtmlTable<RowViewModel> table = Html.DisplayTable(m => m.ListTest).Begin)
+@using (var table = Html.DisplayTable(m => m.ListTest).Begin)
 {
     // Add code to configure the HTML tabel
 }
