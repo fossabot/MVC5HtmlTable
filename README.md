@@ -1,6 +1,7 @@
 # C# MVC5 Enumerable to HTML table c#.NET
 
 [![wndrr MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr?identifier=22318d40-5a11-4ebf-9fe3-36c2e24e05f5)](https://www.myget.org/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FWndrr%2FMVC5HtmlTable.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FWndrr%2FMVC5HtmlTable?ref=badge_shield)
 
 ## Disclaimer - PRERELEASE
 
@@ -108,3 +109,6 @@ We use [SemVer](http://semver.org/) for versioning. For the full list of version
 ## License
 
 *coming soon*
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FWndrr%2FMVC5HtmlTable.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FWndrr%2FMVC5HtmlTable?ref=badge_large)
