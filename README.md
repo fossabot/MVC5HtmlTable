@@ -13,10 +13,15 @@ At this point in time, it's just a simple fluent-API. For future releases, I int
 - [ ] Add attributes to allow parameterization via class decoration
 - [ ] Add bootstrap integration
 - [ ] Add [JQuery-DataTable](https://datatables.net/) integration (or create a clone of the plugin, depending on legal/technical difficulties)
+- [ ] Remove the [RazorEngine](https://preview.nuget.org/packages/RazorEngine/) [dependency](#prerequisites)
 
 ### Prerequisites
 
-*coming soon*
+The always up-to-date list of dependencies can be found on [NuGet](https://preview.nuget.org/packages/MVC5HtmlTable/). For the version 1.0.0.3, the list is as follow:
+- [Microsoft.AspNet.Mvc](https://preview.nuget.org/packages/Microsoft.AspNet.Mvc/) >= v5.2.3
+- [Microsoft.AspNet.Razor](https://preview.nuget.org/packages/Microsoft.AspNet.Razor/) >= 3.2.3
+- [RazorEngine](https://preview.nuget.org/packages/RazorEngine/) >=3.10.0
+
 
 ## Install
 
@@ -88,12 +93,6 @@ As many chained calls can be made, there are no restrictions except that the cal
 
 Details, technical documentation and full examples *coming soon*
     
-## Built With
-
-* *[coming soon](http://comingsoon)* - *coming soon*
-* *[coming soon](http://comingsoon)* - *coming soon*
-* *[coming soon](http://comingsoon)* - *coming soon*
-
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/Wndrr/MVC5HtmlTable/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
