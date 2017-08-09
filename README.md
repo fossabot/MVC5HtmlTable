@@ -1,7 +1,7 @@
 # C# MVC5 Enumerable to HTML table c#.NET
 
-[![wndrr MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr?identifier=22318d40-5a11-4ebf-9fe3-36c2e24e05f5)](https://www.myget.org/)
-
+[![wndrr-perso MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr-perso?identifier=498fa064-1993-4ad1-ac5f-e4386ed007a2)](https://www.myget.org/)
+[![wndrr-perso MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr-perso?identifier=09538ef5-6ee9-47b4-9e19-76fdd97309e4)](https://www.myget.org/)
 ## Disclaimer - PRERELEASE
 
 This c#.NET MVC5 library is still under heavy development. It's an alpha release, so don't use that in your prod environment (yet).  I haven't taken the time to properly test it and it doesn't yet implement all of the features I intend it to contain.
@@ -26,13 +26,13 @@ The always up-to-date list of dependencies can be found on [NuGet](https://previ
 ## Install
 
 The package can be found on;
-- [MyGet](https://www.myget.org/feed/wndrr/package/nuget/MVC5HtmlTable) - [https://www.myget.org/feed/wndrr/package/nuget/MVC5HtmlTable](https://www.myget.org/feed/wndrr/package/nuget/MVC5HtmlTable)
+- [MyGet](https://www.myget.org/feed/wndrr-perso/package/nuget/MVC5HtmlTable) - [https://www.myget.org/feed/wndrr-perso/package/nuget/MVC5HtmlTable](https://www.myget.org/feed/wndrr-perso/package/nuget/MVC5HtmlTable)
 - [NuGet](https://preview.nuget.org/packages/MVC5HtmlTable/) - [https://preview.nuget.org/packages/MVC5HtmlTable/](https://preview.nuget.org/packages/MVC5HtmlTable/)
 - [Github](https://github.com/Wndrr/MVC5HtmlTable) - [https://github.com/Wndrr/MVC5HtmlTable](https://github.com/Wndrr/MVC5HtmlTable)
 
 To install it, you will need a NuGet client running (a standalone CLI, the Visual Studio integration, or any other installation will do).
 
-If you use the Visual Studio NuGet integration you can simply open the VS NuGet command line (Tools -> NuGet Package Manager -> Package Manager Console) and run the command `Install-Package MVC5HtmlTable` to get the latest available release or `Install-Package MVC5HtmlTable -Version x.x.x.x` to get a specific version. You can check the full versions list at the bottom of [this page](https://preview.nuget.org/packages/MVC5HtmlTable/)
+If you use the Visual Studio NuGet integration you can simply open the VS NuGet command line (Tools -> NuGet Package Manager -> Package Manager Console) and run the command `Install-Package MVC5HtmlTable` to get the latest available release or `Install-Package MVC5HtmlTable -Version x.x.x.x` to get a specific version. You can check the full version list at the bottom of [this page](https://preview.nuget.org/packages/MVC5HtmlTable/)
 
 ## Getting started
 
@@ -41,7 +41,7 @@ Getting started with this library is fairly easy. All you really need to do is i
     @Html.DisplayTable(m => m.ListToConvertToTable).Render();
 
 where ListToConvertToTable can be implicitly cast to an IEnumerable and is a property of the ViewModel passed to the Razor view. 
-Every parameterization fluent API call has to be made before the call to `.Render()` (unless if you're using the [disposable context](#a-few-examples)).
+Every parameterization fluent API call has to be made before the call to `.Render()` (unless if you're using the [disposable context](#minimal-call)).
 ### Examples
 
 #### Context
@@ -99,11 +99,11 @@ Please read [CONTRIBUTING.md](https://github.com/Wndrr/MVC5HtmlTable/blob/master
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the full list of versions available, see the [tags on this repository](https://github.com/Wndrr/MVC5HtmlTable/tags). For the full list of available downloads see [MyGet](https://www.myget.org/feed/wndrr/package/nuget/MVC5HtmlTable) or [NuGet](https://preview.nuget.org/packages/MVC5HtmlTable/)
+We use [SemVer](http://semver.org/) for versioning. For the full list of versions available, see the [tags on this repository](https://github.com/Wndrr/MVC5HtmlTable/tags). For the full list of available downloads see [MyGet](https://www.myget.org/feed/wndrr-perso/package/nuget/MVC5HtmlTable) or [NuGet](https://preview.nuget.org/packages/MVC5HtmlTable/)
 
-## Authors
+## Author
 
-* **Mathieu VIALES** aka. Wndrr
+**Mathieu VIALES** aka. *Wndrr*
 
 ## License
 
