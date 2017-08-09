@@ -1,16 +1,7 @@
 mode: ContinuousDeployment
 
 branches: 
-  dev:
+  dev(elop)?(ment)?$:
     mode: ContinuousDeployment
     tag: Alpha
     increment: Patch
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-
-  features?[/-]:
-    mode: ContinuousDeployment
-    tag: useBranchName
-    increment: Minor
-    prevent-increment-of-merged-branch-version: false
-    track-merge-target: false
