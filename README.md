@@ -105,4 +105,4 @@ We use [SemVer](http://semver.org/) for versioning. For the full list of version
 
 ## License
 
-*coming soon*
+This project is under the [MIT license](https://github.com/Wndrr/MVC5HtmlTable/blob/master/LICENSE)
