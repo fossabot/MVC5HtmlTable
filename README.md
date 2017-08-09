@@ -1,7 +1,5 @@
 # C# MVC5 Enumerable to HTML table c#.NET
 
-[![wndrr-perso MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr-perso?identifier=498fa064-1993-4ad1-ac5f-e4386ed007a2)](https://www.myget.org/)
-[![wndrr-perso MyGet Build Status](https://www.myget.org/BuildSource/Badge/wndrr-perso?identifier=09538ef5-6ee9-47b4-9e19-76fdd97309e4)](https://www.myget.org/)
 ## Disclaimer - PRERELEASE
 
 This c#.NET MVC5 library is still under heavy development. It's an alpha release, so don't use that in your prod environment (yet).  I haven't taken the time to properly test it and it doesn't yet implement all of the features I intend it to contain.
